@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MediScan AI</title>
+  <style>
+    body { font-family: Arial; text-align: center; background: #f0f8ff; padding: 40px; }
+    h1 { color: #2c3e50; }
+    input[type="file"] { margin: 20px; padding: 10px; }
+    .result { background: white; border: 1px solid #ddd; padding: 20px; margin: 20px auto; max-width: 500px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>MediScan AI</h1>
+  <p>Scan medicine strip to check if fake</p>
+  <input type="file" id="fileInput" accept="image/*">
+  <button onclick="scan()">Analyze</button>
+  <div id="result" class="result"></div>
+
+  <script>
+    async function scan() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert('Select image');
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await fetch('/scan', { method: 'POST', body: formData });
+      const data = await response.json();
+      
+      document.getElementById('result').innerHTML = `
+        <h3>${data.drug_name}</h3>
+        <p>Expiry: ${data.expiry}</p>
+        <p>Status: ${data.is_fake ? 'FAKE - WARNING!' : 'SAFE'}</p>
+        <p>Side Effects: ${data.side_effects}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
