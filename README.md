@@ -1,36 +1,16 @@
-# MediScan AI - Detect Fake Medicines with AI 
-# MediScan AI – Fake Medicine Detector with Phone Camera
+# MediScan AI demo
 
-**Detects fake medicines, expiry dates & side effects in real-time using AI**  
-Built by **Prit Kalpesh Kumar Bhatt** • 11th Grade • Crystal International Public School, Vastral, Ahmedabad
+A small FastAPI demo for uploading a medicine-package image. **It does not currently include a trained or validated medicine-authentication model.** The API validates an image upload and responds that analysis is unavailable. It never labels a medicine genuine, fake, expired, or safe.
 
-### Features
-- Phone camera scans any medicine strip
-- Vision Transformer + OCR detects fake drugs (hologram tampering, missing text)
-- Reads expiry date & drug name automatically
-- Shows side effects and generic alternatives
-- Works offline (future plan)
+Do not use this demo to make medication decisions. Verify products with a licensed pharmacist or the manufacturer.
 
-### Tech Stack
-- FastAPI (Python) – Backend
-- Vision Transformer (Hugging Face)
-- Tesseract OCR
-- React Native (coming soon)
-- Deployed on Render / Vercel
+## Run locally
 
-### Live Demo
-Backend: https://mediscan-ai.onrender.com  
-Frontend: Coming in 24 hours
+```bash
+python -m venv .venv
+# Activate the environment, then:
+pip install -r requirements.txt
+uvicorn app:app --reload
+```
 
-### Why This Project?
-Fake medicines kill thousands in India every year.  
-MediScan AI helps rural pharmacies and families stay safe.
-
-> "I built this so no one in Gujarat dies from fake medicine."  
-> — Prit Kalpesh Kumar Bhatt
-
-**Target**: University of Waterloo CS • Full Scholarship • GLOBAL TALEND Internship  
-GitHub: https://github.com/KozmikLojik/mediscan-ai
-
----
-Made with love from Vastral, Ahmedabad
+Open `http://127.0.0.1:8000`. The API limits uploads to 5 MB and accepts JPEG, PNG, and WebP images. `/health` reports service availability; `/scan` returns HTTP 503 until a verified model is configured.
